@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sumuda View Hotel | Premium Hospitality in Hawassa</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: '#D4AF37',
+                        goldDark: '#AA820A',
+                        darkNavy: '#0F172A',
+                        softIvory: '#FAF9F6',
+                    },
+                    fontFamily: {
+                        serif: ['Cinzel', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .hero-bg {
+            background: linear-gradient(rgba(15, 23, 42, 0.55), rgba(15, 23, 42, 0.75)), 
+                        url('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+        }
+    </style>
+</head>
+<body class="bg-softIvory text-slate-800 font-sans antialiased">
+
+    <!-- TOP ANNOUNCEMENT / UTILITY BAR -->
+    <div class="bg-darkNavy text-slate-300 text-xs py-2 px-6 border-b border-slate-800 flex justify-between items-center">
+        <div class="flex items-center space-x-6">
+            <span><i class="fa-solid fa-phone text-gold mr-1.5"></i> +251 46 220 0000</span>
+            <span class="hidden md:inline"><i class="fa-solid fa-envelope text-gold mr-1.5"></i> info@sumudaviewhotel.com</span>
+            <span class="hidden md:inline"><i class="fa-solid fa-location-dot text-gold mr-1.5"></i> Lake Road, Hawassa, Ethiopia</span>
+        </div>
+        <div class="flex items-center space-x-4">
+            <!-- Language Selector -->
+            <button id="langToggle" onclick="toggleLanguage()" class="hover:text-gold transition font-semibold">
+                🌐 <span id="currentLang">EN</span>
+            </button>
+            <button onclick="openBookingModal()" class="bg-gold hover:bg-goldDark text-darkNavy font-semibold px-3 py-1 rounded text-xs transition">
+                Book Direct
+            </button>
+        </div>
+    </div>
+
+    <!-- MAIN NAVIGATION -->
+    <nav class="sticky top-0 z-40 bg-white/95 backdrop-blur-md shadow-md">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-darkNavy text-gold font-serif font-bold text-2xl flex items-center justify-center rounded border border-gold">S</div>
+                <div>
+                    <span class="font-serif font-bold text-xl tracking-wider text-darkNavy block leading-none">SUMUDA VIEW</span>
+                    <span class="text-[9px] uppercase tracking-widest text-gold font-semibold">Hotel & Spa • Hawassa</span>
+                </div>
+            </a>
+
+            <div class="hidden lg:flex items-center space-x-8 text-sm font-semibold text-slate-700 uppercase tracking-wider">
+                <a href="#about" class="hover:text-gold transition">About</a>
+                <a href="#rooms" class="hover:text-gold transition">Rooms & Suites</a>
+                <a href="#dining" class="hover:text-gold transition">Dining</a>
+                <a href="#conferences" class="hover:text-gold transition">Conferences</a>
+                <a href="#amenities" class="hover:text-gold transition">Amenities</a>
+                <a href="#gallery" class="hover:text-gold transition">Gallery</a>
+            </div>
+
+            <button onclick="openBookingModal()" class="hidden sm:inline-block bg-darkNavy text-white hover:bg-gold hover:text-darkNavy font-semibold text-xs uppercase px-5 py-3 rounded tracking-widest transition duration-300">
+                Reserve Room
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION WITH QUICK RESERVATION WIDGET -->
+    <section class="hero-bg min-h-[85vh] flex items-center justify-center relative px-6 py-20">
+        <div class="max-w-4xl text-center text-white">
+            <span class="text-gold uppercase tracking-[0.3em] text-sm font-semibold mb-4 block" data-key="hero-sub">Welcome to Hawassa's Premier Gateway</span>
+            <h1 class="font-serif text-4xl sm:text-6xl font-bold leading-tight mb-6" data-key="hero-title">Experience Unmatched Luxury Overlooking Lake Hawassa</h1>
+            <p class="text-slate-200 text-base sm:text-lg max-w-2xl mx-auto mb-10 font-light" data-key="hero-desc">
+                Seamlessly combining international hospitality standards with Sidama warmth. World-class dining, spa, and corporate event spaces.
+            </p>
+
+            <!-- Quick Reservation Bar -->
+            <form onsubmit="handleQuickSearch(event)" class="bg-white/95 backdrop-blur-md text-slate-800 p-4 rounded-xl shadow-2xl max-w-3xl mx-auto grid grid-cols-1 sm:grid-cols-4 gap-4 items-end">
+                <div class="text-left">
+                    <label class="block text-xs uppercase font-semibold text-slate-500 mb-1">Check-In</label>
+                    <input type="date" required id="quickCheckIn" class="w-full text-xs p-2.5 border rounded focus:ring-2 focus:ring-gold outline-none">
+                </div>
+                <div class="text-left">
+                    <label class="block text-xs uppercase font-semibold text-slate-500 mb-1">Check-Out</label>
+                    <input type="date" required id="quickCheckOut" class="w-full text-xs p-2.5 border rounded focus:ring-2 focus:ring-gold outline-none">
+                </div>
+                <div class="text-left">
+                    <label class="block text-xs uppercase font-semibold text-slate-500 mb-1">Guests</label>
+                    <select id="quickGuests" class="w-full text-xs p-2.5 border rounded focus:ring-2 focus:ring-gold outline-none bg-white">
+                        <option value="1">1 Adult</option>
+                        <option value="2">2 Adults</option>
+                        <option value="3">3+ Family</option>
+                    </select>
+                </div>
+                <button type="submit" class="bg-gold hover:bg-goldDark text-darkNavy font-bold uppercase text-xs py-3 px-4 rounded tracking-wider transition w-full">
+                    Check Rates
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- ROOMS & SUITES SECTION -->
+    <section id="rooms" class="max-w-7xl mx-auto py-20 px-6">
+        <div class="text-center mb-12">
+            <span class="text-gold uppercase tracking-widest text-xs font-bold">Accommodations</span>
+            <h2 class="font-serif text-3xl sm:text-4xl font-bold text-darkNavy mt-2">Refined Rooms & Executive Suites</h2>
+            <div class="w-16 h-1 bg-gold mx-auto mt-4"></div>
+        </div>
+
+        <!-- Category Filters -->
+        <div class="flex justify-center space-x-3 mb-10 text-xs uppercase font-semibold">
+            <button onclick="filterRooms('all')" class="room-btn active bg-darkNavy text-white px-4 py-2 rounded">All</button>
+            <button onclick="filterRooms('standard')" class="room-btn bg-slate-200 text-slate-700 px-4 py-2 rounded hover:bg-slate-300">Standard</button>
+            <button onclick="filterRooms('deluxe')" class="room-btn bg-slate-200 text-slate-700 px-4 py-2 rounded hover:bg-slate-300">Deluxe</button>
+            <button onclick="filterRooms('suite')" class="room-btn bg-slate-200 text-slate-700 px-4 py-2 rounded hover:bg-slate-300">Executive Suites</button>
+        </div>
+
+        <!-- Room Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="roomGrid">
+            <!-- Room 1 -->
+            <div class="room-card standard bg-white rounded-xl overflow-hidden shadow-lg border border-slate-100 flex flex-col">
+                <img src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=80" alt="Standard King Room" class="w-full h-56 object-cover">
+                <div class="p-6 flex-1 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs uppercase tracking-widest text-gold font-bold">City View</span>
+                            <span class="text-xs text-slate-400"><i class="fa-solid fa-wifi text-slate-600 mr-1"></i> Free Wi-Fi</span>
+                        </div>
+                        <h3 class="font-serif font-bold text-xl text-darkNavy mb-2">Standard King Room</h3>
+                        <p class="text-slate-600 text-sm mb-4">Comfortably furnished room featuring high-speed Internet, work desk, and 24-hour room service.</p>
+                    </div>
+                    <div>
+                        <div class="text-lg font-bold text-darkNavy mb-4">ETB 3,500 <span class="text-xs font-normal text-slate-500">/ night</span></div>
+                        <button onclick="openBookingModal('Standard King Room')" class="w-full text-center border border-darkNavy text-darkNavy hover:bg-darkNavy hover:text-white font-semibold text-xs uppercase py-2.5 rounded transition">Select Room</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Room 2 -->
+            <div class="room-card deluxe bg-white rounded-xl overflow-hidden shadow-lg border border-slate-100 flex flex-col">
+                <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80" alt="Deluxe Lake View" class="w-full h-56 object-cover">
+                <div class="p-6 flex-1 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs uppercase tracking-widest text-gold font-bold">Lake View</span>
+                            <span class="text-xs text-slate-400"><i class="fa-solid fa-water text-slate-600 mr-1"></i> Balcony</span>
+                        </div>
+                        <h3 class="font-serif font-bold text-xl text-darkNavy mb-2">Deluxe Lake View</h3>
+                        <p class="text-slate-600 text-sm mb-4">Enjoy views of Lake Hawassa with a private balcony, breakfast included, and luxury bath fittings.</p>
+                    </div>
+                    <div>
+                        <div class="text-lg font-bold text-darkNavy mb-4">ETB 5,200 <span class="text-xs font-normal text-slate-500">/ night</span></div>
+                        <button onclick="openBookingModal('Deluxe Lake View')" class="w-full text-center border border-darkNavy text-darkNavy hover:bg-darkNavy hover:text-white font-semibold text-xs uppercase py-2.5 rounded transition">Select Room</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Room 3 -->
+            <div class="room-card suite bg-white rounded-xl overflow-hidden shadow-lg border border-slate-100 flex flex-col">
+                <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80" alt="Executive Presidential Suite" class="w-full h-56 object-cover">
+                <div class="p-6 flex-1 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs uppercase tracking-widest text-gold font-bold">VIP Floor</span>
+                            <span class="text-xs text-slate-400"><i class="fa-solid fa-crown text-slate-600 mr-1"></i> Lounge Access</span>
+                        </div>
+                        <h3 class="font-serif font-bold text-xl text-darkNavy mb-2">Executive Presidential Suite</h3>
+                        <p class="text-slate-600 text-sm mb-4">Expansive living room, complimentary airport shuttle, Jacuzzi, and dedicated butler service.</p>
+                    </div>
+                    <div>
+                        <div class="text-lg font-bold text-darkNavy mb-4">ETB 9,800 <span class="text-xs font-normal text-slate-500">/ night</span></div>
+                        <button onclick="openBookingModal('Executive Presidential Suite')" class="w-full text-center bg-gold text-darkNavy hover:bg-goldDark font-semibold text-xs uppercase py-2.5 rounded transition">Select Room</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DINING & AMENITIES SECTION -->
+    <section id="dining" class="bg-slate-100 py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <span class="text-gold uppercase tracking-widest text-xs font-bold">Cuisine & Relaxation</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-darkNavy mt-2 mb-6">Traditional Sidama Flavors & International Dining</h2>
+                    <p class="text-slate-600 leading-relaxed mb-6">
+                        From authentic local delicacies like <em>Omo Lacho</em> and fresh Lake Hawassa tilapia to international gourmet buffets, our restaurants serve culinary experiences carefully prepared by experienced chefs.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-4 border-t border-slate-200 pt-6">
+                        <div>
+                            <h4 class="font-bold text-darkNavy text-sm mb-1"><i class="fa-solid fa-utensils text-gold mr-2"></i> Main Restaurant</h4>
+                            <p class="text-xs text-slate-500">Daily Breakfast, Lunch & Dinner Buffets.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-darkNavy text-sm mb-1"><i class="fa-solid fa-mug-hot text-gold mr-2"></i> Pastry & Coffee Lounge</h4>
+                            <p class="text-xs text-slate-500">Fresh Ethiopian coffee, pastries, and snacks.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-darkNavy text-sm mb-1"><i class="fa-solid fa-water-ladder text-gold mr-2"></i> Outdoor Pool & Bar</h4>
+                            <p class="text-xs text-slate-500">Refreshing cocktails and poolside relaxation.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-darkNavy text-sm mb-1"><i class="fa-solid fa-spa text-gold mr-2"></i> Spa & Steam / Sauna</h4>
+                            <p class="text-xs text-slate-500">Full body massages, sauna, and wellness.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=600&q=80" alt="Restaurant" class="rounded-lg shadow-md w-full h-64 object-cover">
+                    <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=600&q=80" alt="Spa" class="rounded-lg shadow-md w-full h-64 object-cover mt-8">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONFERENCES & EVENTS SECTION -->
+    <section id="conferences" class="py-20 max-w-7xl mx-auto px-6">
+        <div class="bg-darkNavy rounded-2xl text-white p-10 md:p-16 relative overflow-hidden">
+            <div class="max-w-2xl relative z-10">
+                <span class="text-gold uppercase tracking-widest text-xs font-bold">MICE & Events</span>
+                <h2 class="font-serif text-3xl sm:text-4xl font-bold mt-2 mb-4">State-of-the-Art Conference Halls in Hawassa</h2>
+                <p class="text-slate-300 text-sm leading-relaxed mb-8">
+                    Host your summits, corporate retreats, or weddings in our versatile halls equipped with audio-visual equipment, wireless internet, and flexible coffee break packages.
+                </p>
+                <div class="flex flex-wrap gap-4 text-xs font-semibold uppercase">
+                    <span class="bg-white/10 border border-white/20 px-3 py-1.5 rounded">Up to 500 Guests</span>
+                    <span class="bg-white/10 border border-white/20 px-3 py-1.5 rounded">High-Speed Wi-Fi</span>
+                    <span class="bg-white/10 border border-white/20 px-3 py-1.5 rounded">Catering Service</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-darkNavy text-slate-400 py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 text-xs">
+            <div>
+                <h3 class="text-white font-serif font-bold text-lg mb-4">SUMUDA VIEW HOTEL</h3>
+                <p class="leading-relaxed">Your premier destination for luxury accommodation, dining, and corporate events in Hawassa, Southern Ethiopia.</p>
+            </div>
+            <div>
+                <h4 class="text-gold font-bold uppercase mb-4">Quick Links</h4>
+                <ul class="space-y-2">
+                    <li><a href="#rooms" class="hover:text-white transition">Rooms & Pricing</a></li>
+                    <li><a href="#dining" class="hover:text-white transition">Restaurant Menu</a></li>
+                    <li><a href="#conferences" class="hover:text-white transition">Hall Booking</a></li>
+                    <li><a href="#" class="hover:text-white transition">Hawassa City Guide</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-gold font-bold uppercase mb-4">Hawassa Attractions</h4>
+                <ul class="space-y-2">
+                    <li>Lake Hawassa Boat Trips</li>
+                    <li>Amora Gedel Fish Market</li>
+                    <li>Hawassa Millennium Park</li>
+                    <li>Tabor Mountain Viewpoint</li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-gold font-bold uppercase mb-4">Contact Us</h4>
+                <p class="mb-2"><i class="fa-solid fa-location-dot mr-2"></i> Hawassa, Sidama, Ethiopia</p>
+                <p class="mb-2"><i class="fa-solid fa-phone mr-2"></i> +251 46 220 0000 / +251 91 100 0000</p>
+                <p><i class="fa-solid fa-envelope mr-2"></i> reservation@sumudaviewhotel.com</p>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-6 border-t border-slate-800 pt-6 text-center text-[11px]">
+            <p>&copy; 2026 Sumuda View Hotel. Designed by Web Development Solutions.</p>
+        </div>
+    </footer>
+
+    <!-- RESERVATION MODAL -->
+    <div id="bookingModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 relative shadow-2xl">
+            <button onclick="closeBookingModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-800 text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 class="font-serif font-bold text-xl text-darkNavy mb-1">Book Your Stay</h3>
+            <p class="text-xs text-slate-500 mb-6">Direct reservation at Sumuda View Hotel, Hawassa.</p>
+
+            <form id="reservationForm" onsubmit="submitReservation(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Room Selection</label>
+                    <select id="modalRoom" class="w-full text-xs p-3 border rounded-lg focus:ring-2 focus:ring-gold outline-none">
+                        <option value="Standard King Room">Standard King Room - ETB 3,500</option>
+                        <option value="Deluxe Lake View">Deluxe Lake View - ETB 5,200</option>
+                        <option value="Executive Presidential Suite">Executive Presidential Suite - ETB 9,800</option>
+                    </select>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Full Name</label>
+                        <input type="text" required placeholder="Abebe Bikila" class="w-full text-xs p-3 border rounded-lg focus:ring-2 focus:ring-gold outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Phone Number</label>
+                        <input type="tel" required placeholder="+251 9..." class="w-full text-xs p-3 border rounded-lg focus:ring-2 focus:ring-gold outline-none">
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Check In</label>
+                        <input type="date" required id="modalCheckIn" class="w-full text-xs p-3 border rounded-lg focus:ring-2 focus:ring-gold outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Check Out</label>
+                        <input type="date" required id="modalCheckOut" class="w-full text-xs p-3 border rounded-lg focus:ring-2 focus:ring-gold outline-none">
+                    </div>
+                </div>
+                <button type="submit" class="w-full bg-gold hover:bg-goldDark text-darkNavy font-bold uppercase text-xs py-3.5 rounded-lg tracking-wider transition mt-4">
+                    Confirm Reservation Request
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Language Dictionary
+        const translations = {
+            en: {
+                "hero-sub": "Welcome to Hawassa's Premier Gateway",
+                "hero-title": "Experience Unmatched Luxury Overlooking Lake Hawassa",
+                "hero-desc": "Seamlessly combining international hospitality standards with Sidama warmth. World-class dining, spa, and corporate event spaces."
+            },
+            am: {
+                "hero-sub": "እንኳን ወደ ሱሙዳ View ሆቴል በደህና መጡ",
+                "hero-title": "በሐዋሳ ሀይቅ አቅራቢያ የሚገኝ ምርጥ የሆቴል አገልግሎት",
+                "hero-desc": "ዘመናዊ አገልግሎት ከሲዳማ የእንግዳ ተቀባይነት ባህል ጋር የተቀላቀለበት። ዘመናዊ ክፍሎች፣ የስብሰባ አዳራሾች እና እስፓ።"
+            }
+        };
+
+        let currentLang = "en";
+
+        function toggleLanguage() {
+            currentLang = currentLang === "en" ? "am" : "en";
+            document.getElementById('currentLang').innerText = currentLang.toUpperCase();
+            
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (translations[currentLang][key]) {
+                    el.innerText = translations[currentLang][key];
+                }
+            });
+        }
+
+        // Room Filtering
+        function filterRooms(category) {
+            const cards = document.querySelectorAll('.room-card');
+            cards.forEach(card => {
+                if (category === 'all' || card.classList.contains(category)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Modal Logic
+        function openBookingModal(roomName = null) {
+            if (roomName) {
+                document.getElementById('modalRoom').value = roomName;
+            }
+            document.getElementById('bookingModal').classList.remove('hidden');
+        }
+
+        function closeBookingModal() {
+            document.getElementById('bookingModal').classList.add('hidden');
+        }
+
+        function handleQuickSearch(e) {
+            e.preventDefault();
+            const checkIn = document.getElementById('quickCheckIn').value;
+            const checkOut = document.getElementById('quickCheckOut').value;
+            document.getElementById('modalCheckIn').value = checkIn;
+            document.getElementById('modalCheckOut').value = checkOut;
+            openBookingModal();
+        }
+
+        function submitReservation(e) {
+            e.preventDefault();
+            alert("Thank you! Your booking request has been submitted. Our front desk team will contact you shortly.");
+            closeBookingModal();
+        }
+    </script>
+</body>
+</html>
