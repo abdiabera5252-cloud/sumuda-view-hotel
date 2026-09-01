@@ -148,9 +148,9 @@
 
         <div class="flex justify-center space-x-3 mb-10 text-xs uppercase font-semibold">
             <button onclick="filterRooms('all')" class="room-btn active bg-darkNavy text-white px-4 py-2 rounded">All</button>
-            <button onclick="filterRooms('standard')" class="room-btn bg-slate-200 text-slate-700 px-4 py-2 rounded hover:bg-slate-300">Standard</button>
-            <button onclick="filterRooms('deluxe')" class="room-btn bg-slate-200 text-slate-700 px-4 py-2 rounded hover:bg-slate-300">Deluxe</button>
-            <button onclick="filterRooms('suite')" class="room-btn bg-slate-200 text-slate-700 px-4 py-2 rounded hover:bg-slate-300">Executive Suites</button>
+            <button onclick="filterRooms('DELUXE')" class="room-btn bg-slate-200 text-slate-700 px-4 py-2 rounded hover:bg-slate-300">Standard</button>
+            <button onclick="filterRooms('TWIN')" class="room-btn bg-slate-200 text-slate-700 px-4 py-2 rounded hover:bg-slate-300">Deluxe</button>
+            <button onclick="filterRooms('SINGLE')" class="room-btn bg-slate-200 text-slate-700 px-4 py-2 rounded hover:bg-slate-300">Executive Suites</button>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="roomGrid">
@@ -162,7 +162,7 @@
                             <span class="text-xs uppercase tracking-widest text-gold font-bold">City View</span>
                             <span class="text-xs text-slate-400"><i class="fa-solid fa-wifi text-slate-600 mr-1"></i> Free Wi-Fi</span>
                         </div>
-                        <h3 class="font-serif font-bold text-xl text-darkNavy mb-2">Standard King Room</h3>
+                        <h3 class="font-serif font-bold text-xl text-darkNavy mb-2">DELUXE ROOM</h3>
                         <p class="text-slate-600 text-sm mb-4">Comfortably furnished room featuring high-speed Internet, work desk, and 24-hour room service.</p>
                     </div>
                     <div>
@@ -180,11 +180,11 @@
                             <span class="text-xs uppercase tracking-widest text-gold font-bold">Lake View</span>
                             <span class="text-xs text-slate-400"><i class="fa-solid fa-water text-slate-600 mr-1"></i> Balcony</span>
                         </div>
-                        <h3 class="font-serif font-bold text-xl text-darkNavy mb-2">Deluxe Lake View</h3>
+                        <h3 class="font-serif font-bold text-xl text-darkNavy mb-2">TWIN ROOM</h3>
                         <p class="text-slate-600 text-sm mb-4">Enjoy views of Lake Hawassa with a private balcony, breakfast included, and luxury bath fittings.</p>
                     </div>
                     <div>
-                        <div class="text-lg font-bold text-darkNavy mb-4">ETB 5,200 <span class="text-xs font-normal text-slate-500">/ night</span></div>
+                        <div class="text-lg font-bold text-darkNavy mb-4">ETB 3,500 <span class="text-xs font-normal text-slate-500">/ night</span></div>
                         <button onclick="openBookingModal('Deluxe Lake View')" class="w-full text-center border border-darkNavy text-darkNavy hover:bg-darkNavy hover:text-white font-semibold text-xs uppercase py-2.5 rounded transition">Select Room</button>
                     </div>
                 </div>
@@ -198,11 +198,11 @@
                             <span class="text-xs uppercase tracking-widest text-gold font-bold">VIP Floor</span>
                             <span class="text-xs text-slate-400"><i class="fa-solid fa-crown text-slate-600 mr-1"></i> Lounge Access</span>
                         </div>
-                        <h3 class="font-serif font-bold text-xl text-darkNavy mb-2">Executive Presidential Suite</h3>
+                        <h3 class="font-serif font-bold text-xl text-darkNavy mb-2">SINGLE ROOM</h3>
                         <p class="text-slate-600 text-sm mb-4">Expansive living room, complimentary airport shuttle, Jacuzzi, and dedicated butler service.</p>
                     </div>
                     <div>
-                        <div class="text-lg font-bold text-darkNavy mb-4">ETB 9,800 <span class="text-xs font-normal text-slate-500">/ night</span></div>
+                        <div class="text-lg font-bold text-darkNavy mb-4">ETB 2,500 <span class="text-xs font-normal text-slate-500">/ night</span></div>
                         <button onclick="openBookingModal('Executive Presidential Suite')" class="w-full text-center bg-gold text-darkNavy hover:bg-goldDark font-semibold text-xs uppercase py-2.5 rounded transition">Select Room</button>
                     </div>
                 </div>
